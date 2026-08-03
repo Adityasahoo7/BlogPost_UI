@@ -1,0 +1,11 @@
+CREATE A NEW PROJECT
+
+Click on the Folder structer
+Open CMD
+write ng new project_Name
+click enter
+click y and enter for routing
+select css and click enter
+
+
+https://github.com/Adityasahoo7/BlogPost_UI.git
