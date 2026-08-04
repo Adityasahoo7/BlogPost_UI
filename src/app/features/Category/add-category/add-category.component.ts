@@ -15,6 +15,6 @@ addCategoryFormgroup = new FormGroup({
 
 });
 onsubmit(){
-  console.log(this.addCategoryFormgroup.getRawValue);
+  console.log(this.addCategoryFormgroup.getRawValue());
 }
 }
