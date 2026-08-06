@@ -31,5 +31,8 @@ get urlHandleFormControl(){
 
 onsubmit(){
   console.log(this.addCategoryFormgroup.getRawValue());
+
+  const addcategoryvalue=this.addCategoryFormgroup.getRawValue()
+
 }
 }
