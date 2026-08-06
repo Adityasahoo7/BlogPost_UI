@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component,effect, inject } from '@angular/core'
 import { FormGroup,FormControl,ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Addcategoryrequest } from '../Models/category.model';
 import { CategoryServiceService } from '../Services/category-service.service';
@@ -9,6 +9,16 @@ import { CategoryServiceService } from '../Services/category-service.service';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent {
+  constructor(){
+    effect(()=>{
+    if(this.categoryservice.addcategorystatus()==='success'){
+      console.log("Add Category Success")
+    } 
+    if(this.categoryservice.addcategorystatus()==='error'){
+      console.error("Add Category request Fail")
+    }
+  });
+  }
 
   private categoryservice = inject(CategoryServiceService);
 
@@ -48,13 +58,6 @@ onsubmit(){
 
   this.categoryservice.addCategory(addcategoryrequestdto);
 
-  effect(()=>{
-    if(this.categoryservice.addcategorystatus()==='success'){
-      console.log("Add Category Success")
-    } 
-    if(this.categoryservice.addcategorystatus()==='error'){
-      console.error("Add Category request Fail")
-    }
-  })
+  
 }
 }

@@ -7,6 +7,7 @@ import { NavbarComponent } from './Core/Components/navbar/navbar.component';
 import { CategoryListComponent } from './features/Category/category-list/category-list.component';
 import { AddCategoryComponent } from './features/Category/add-category/add-category.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

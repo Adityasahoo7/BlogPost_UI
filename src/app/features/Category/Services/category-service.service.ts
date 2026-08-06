@@ -9,7 +9,7 @@ export class CategoryServiceService {
   constructor() { }
 
   private http = inject(HttpClient);
-  private baseUrl ='';
+  private baseUrl ='http://localhost:5086';
 
 
   addcategorystatus = signal<'idle'|'loading'|'error'|'success'>('idle');
@@ -17,11 +17,12 @@ export class CategoryServiceService {
 
   addCategory(category:Addcategoryrequest){
     this.addcategorystatus.set('loading');
-    this.http.post<void>(`${this.baseUrl}/api.categories`,category).subscribe({
+    this.http.post<void>(`${this.baseUrl}/api/Categories`,category).subscribe({
       next:()=>{
         this.addcategorystatus.set('success');
       },
-      error:()=>{
+      error:(error)=>{
+        console.log(error);
         this.addcategorystatus.set('error');
       },
     });
