@@ -51,17 +51,10 @@
             <td>{{ category.urlHandle }}</td>
 
             <td>
-                <button
-                    class="btn btn-primary btn-sm me-2"
-                    [routerLink]="['edit', category.id]">
-                    Edit
-                </button>
+               
 
-                <button
-                    class="btn btn-danger btn-sm"
-                    (click)="deleteCategory(category.id)">
-                    Delete
-                </button>
+                <a [routerLink]="['edit', category.id]">Edit</a>
+                
             </td>
 
         </tr>

@@ -32,6 +32,7 @@ export class EditCategoryComponent {
 
     // Create form
     this.editCategoryForm = this.fb.group({
+      id: [''],
       name: ['', Validators.required],
       urlHandle: ['', Validators.required]
     });
@@ -40,6 +41,27 @@ export class EditCategoryComponent {
     this.getCategoryById();
   }
 
+deleteCategory(id:string){
+
+  if(!confirm("Are you sure you want to delete this category?")){
+    return;
+  }
+  this.categoryService.deleteCategory(id).subscribe({
+
+    next:()=>{
+      //this.getallcategory()
+      this.router.navigate(['/admin/categories']);
+    },
+    error:(error)=>{
+      console.log(error);
+    }
+  });
+
+}
+
+back():void{
+  this.router.navigate(['/admin/categories']);
+}
 
   getCategoryById(): void {
 
@@ -52,6 +74,7 @@ export class EditCategoryComponent {
 
           // Put API data into form
           this.editCategoryForm.patchValue({
+              id: category.id,
             name: category.name,
             urlHandle: category.urlHandle
           });
@@ -104,4 +127,7 @@ export class EditCategoryComponent {
 
       });
   }
+
+
+
 }

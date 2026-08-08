@@ -1,62 +1,69 @@
-<div class="container mt-4">
+<h1>Edit Category</h1>
 
-    <h1>Edit Category</h1>
+<form [formGroup]="editCategoryForm" (ngSubmit)="updateCategory()">
 
-    <form [formGroup]="editCategoryForm" (ngSubmit)="updateCategory()">
+    <div class="mb-3">
+        <label for="id" class="form-label">
+            Category ID
+        </label>
 
-        <div class="mb-3">
-            <label for="name" class="form-label">
-                Category Name
-            </label>
+        <input
+            type="text"
+            id="id"
+            class="form-control"
+            formControlName="id"
+            readonly>
+    </div>
 
-            <input
-                type="text"
-                id="name"
-                class="form-control"
-                formControlName="name">
+    <div class="mb-3">
+        <label for="name" class="form-label">
+            Category Name
+        </label>
 
-            <div
-                class="text-danger"
-                *ngIf="editCategoryForm.get('name')?.touched &&
-                       editCategoryForm.get('name')?.invalid">
+        <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name">
 
-                Category name is required.
+        <div
+            class="text-danger"
+            *ngIf="editCategoryForm.get('name')?.touched &&
+                   editCategoryForm.get('name')?.invalid">
 
-            </div>
+            Category name is required.
+
         </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="urlHandle" class="form-label">
+            URL Handle
+        </label>
+
+        <input
+            type="text"
+            id="urlHandle"
+            class="form-control"
+            formControlName="urlHandle">
+    </div>
+
+    <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="editCategoryForm.invalid || isLoading">
+
+        {{ isLoading ? 'Updating...' : 'Update Category' }}
+
+    </button>
+    <button
+    type="button"
+    class="btn btn-danger btn-sm"
+    (click)="deleteCategory(editCategoryForm.get('id')?.value)">
+    Delete
+</button>
+
+<button class="btn btn-secondary" (click)="back()">Back</button>
 
 
-        <div class="mb-3">
-            <label for="urlHandle" class="form-label">
-                URL Handle
-            </label>
-
-            <input
-                type="text"
-                id="urlHandle"
-                class="form-control"
-                formControlName="urlHandle">
-        </div>
-
-
-        <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="editCategoryForm.invalid || isLoading">
-
-            {{ isLoading ? 'Updating...' : 'Update Category' }}
-
-        </button>
-
-        <button
-            type="button"
-            class="btn btn-secondary ms-2"
-            routerLink="/admin/categories">
-
-            Cancel
-
-        </button>
-
-    </form>
-
-</div>
+</form>
