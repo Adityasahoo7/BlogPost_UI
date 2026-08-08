@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
-import { Addcategoryrequest } from '../Models/category.model';
+import {HttpClient } from '@angular/common/http'
+import { Addcategoryrequest, getallCategory } from '../Models/category.model';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +12,7 @@ export class CategoryServiceService {
   private http = inject(HttpClient);
   private baseUrl ='http://localhost:5086';
 
+  // http://localhost:5086/api/Categories
 
   addcategorystatus = signal<'idle'|'loading'|'error'|'success'>('idle');
 
@@ -26,5 +28,20 @@ export class CategoryServiceService {
         this.addcategorystatus.set('error');
       },
     });
+
+
+
+  
+  
+  
+  
+  
   }
+
+  getallCategory():Observable<getallCategory[]>{
+
+    return this.http.get<getallCategory[]>(`${this.baseUrl}/api/Categories`);
+  }
+
+
 }
