@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import {HttpClient } from '@angular/common/http'
 import { Addcategoryrequest, getallCategory } from '../Models/category.model';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,8 +11,9 @@ export class CategoryServiceService {
   constructor() { }
 
   private http = inject(HttpClient);
-  private baseUrl ='http://localhost:5086';
+ // private baseUrl ='http://localhost:5086';
 
+ private baseUrl= environment.categoryapiurl;
   // http://localhost:5086/api/Categories
 
   addcategorystatus = signal<'idle'|'loading'|'error'|'success'>('idle');
