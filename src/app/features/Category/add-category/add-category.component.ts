@@ -2,6 +2,7 @@ import { Component,effect, inject } from '@angular/core'
 import { FormGroup,FormControl,ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Addcategoryrequest } from '../Models/category.model';
 import { CategoryServiceService } from '../Services/category-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category',
@@ -21,6 +22,8 @@ export class AddCategoryComponent {
   }
 
   private categoryservice = inject(CategoryServiceService);
+
+  private router=inject(Router);
 
 
 
@@ -57,6 +60,7 @@ onsubmit(){
 
 
   this.categoryservice.addCategory(addcategoryrequestdto);
+  this.router.navigate(['/admin/categories']);
 
   
 }

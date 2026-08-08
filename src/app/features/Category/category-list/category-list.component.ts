@@ -9,27 +9,29 @@ import { getallCategory } from '../Models/category.model';
 })
 export class CategoryListComponent {
 
-  category:getallCategory[]=[];
-  isLoading=false;
+  categorylist:getallCategory[]=[];
+  isLoading = false;
   errormessage='';
-constructor(private categoryservice:CategoryServiceService) {
-}
+  constructor(private categoryservice:CategoryServiceService){
+
+  }
 ngOnInit():void{
   this.getallcategory();
 }
+  getallcategory():void{
 
-getallcategory():void{
-  this.isLoading=true;
-  this.errormessage='';
-  this.categoryservice.getallCategory().subscribe({
-    next:(response:getallCategory[])=>{
-      this.category=response
-      this.isLoading=false;
-    },
-    error:(error)=>{
-      this.isLoading=false;
-      this.errormessage="Unable to Load CategoryList";
-    }
-  });
-}
+    this.isLoading=true;
+    this.errormessage='';
+    this.categoryservice.getallCategory().subscribe({
+      next:(response:getallCategory[])=>{
+        this.categorylist=response;
+        this.isLoading=false;
+      },
+      error:(error)=>{
+        this.isLoading=true;
+        this.errormessage='Unable to Load Category List'
+      }
+    });
+  }
+ 
 }
