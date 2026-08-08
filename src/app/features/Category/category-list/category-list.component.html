@@ -32,27 +32,41 @@
   </div>
     </div>
 
-    <table *ngIf="!isLoading && !errormessage && categorylist.length>0">
+    <table *ngIf="!isLoading && !errormessage && categorylist.length > 0">
 
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>UrlHandle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let category of categorylist">
-                <td>{{category.id}}</td>
-                <td>{{category.name}}</td>
-                <td>{{category.urlHandle}}</td>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>UrlHandle</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-            </tr>
+    <tbody>
+        <tr *ngFor="let category of categorylist">
 
-        </tbody>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.urlHandle }}</td>
 
+            <td>
+                <button
+                    class="btn btn-primary btn-sm me-2"
+                    [routerLink]="['edit', category.id]">
+                    Edit
+                </button>
 
+                <button
+                    class="btn btn-danger btn-sm"
+                    (click)="deleteCategory(category.id)">
+                    Delete
+                </button>
+            </td>
 
-    </table>
+        </tr>
+    </tbody>
+
+</table>
 
 </div>

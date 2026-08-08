@@ -18,6 +18,24 @@ export class CategoryListComponent {
 ngOnInit():void{
   this.getallcategory();
 }
+
+deleteCategory(id:string){
+
+  if(!confirm("Are you sure you want to delete this category?")){
+    return;
+  }
+  this.categoryservice.deleteCategory(id).subscribe({
+
+    next:()=>{
+      this.getallcategory()
+    },
+    error:(error)=>{
+      console.log(error);
+    }
+  });
+
+}
+
   getallcategory():void{
 
     this.isLoading=true;

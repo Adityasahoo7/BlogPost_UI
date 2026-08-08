@@ -30,14 +30,6 @@ export class CategoryServiceService {
         this.addcategorystatus.set('error');
       },
     });
-
-
-
-  
-  
-  
-  
-  
   }
 
   getallCategory():Observable<getallCategory[]>{
@@ -45,5 +37,22 @@ export class CategoryServiceService {
     return this.http.get<getallCategory[]>(`${this.baseUrl}/api/Categories`);
   }
 
+getCategoryById(id: string) {
+  return this.http.get<any>(
+    `${this.baseUrl}/api/Categories/${id}`
+  );
+}
 
+updateCategory(id: string, category: any) {
+  return this.http.put(
+    `${this.baseUrl}/api/Categories/UpdateCategory/${id}`,
+    category,{ responseType: 'text' }
+  );
+}
+
+deleteCategory(id: string) {
+    return this.http.delete(
+        `${this.baseUrl}/api/Categories/Deletecategory/${id}`,{ responseType: 'text' }
+    );
+}
 }
