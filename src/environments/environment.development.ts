@@ -1,3 +1,4 @@
 export const environment = {
-    categoryapiurl:'http://localhost:5086'
+    categoryapiurl:'http://localhost:5086',
+    blogpostapiurl:''
 };
