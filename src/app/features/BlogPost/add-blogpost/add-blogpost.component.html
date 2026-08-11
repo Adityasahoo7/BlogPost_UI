@@ -27,17 +27,35 @@
   </div>
 
 
-  <div class="mb-3">
-    <label class="form-label">
-      Content
-    </label>
+ <div class="mb-3">
+  <div class="d-flex flex-row">
 
-    <textarea
-      class="form-control"
-      rows="8"
-      formControlName="content">
-    </textarea>
+    <!-- Markdown Input -->
+    <div class="col-6 p-2">
+      <label class="form-label">
+        Content
+      </label>
+
+      <textarea
+        class="form-control"
+        rows="8"
+        formControlName="content">
+      </textarea>
+    </div>
+
+    <!-- Markdown Preview -->
+    <div
+      class="col-6 p-2"
+      style="max-height: 360px; overflow-y: scroll">
+
+     <markdown
+  [data]="addBlogPostForm.controls['content'].getRawValue()">
+</markdown>
+
+    </div>
+
   </div>
+</div>
 
 
   <div class="mb-3">
@@ -52,16 +70,46 @@
   </div>
 
 
-  <div class="mb-3">
-    <label class="form-label">
-      Featured Image URL
-    </label>
+ <div class="mb-3">
+  <label class="form-label">
+    Featured Image URL
+  </label>
 
-    <input
-      type="text"
-      class="form-control"
-      formControlName="featuredImageURL">
+  <input
+    type="text"
+    class="form-control"
+    formControlName="featuredImageURL"
+    placeholder="Enter image URL">
+
+  <div
+    class="mt-3"
+    *ngIf="addBlogPostForm.get('featuredImageURL')?.value">
+
+    <img
+      [src]="addBlogPostForm.get('featuredImageURL')?.value"
+      alt="Featured Image Preview"
+      style="
+        max-width: 300px;
+        max-height: 200px;
+        object-fit: cover;
+      "
+      (error)="imageError = true"
+      (load)="imageError = false">
+
+    <div
+      *ngIf="imageError"
+      class="text-danger mt-2">
+      ❌ Invalid image URL or image could not be loaded.
+    </div>
+
+    <div
+      *ngIf="!imageError"
+      class="text-success mt-2">
+      ✅ Image loaded successfully.
+    </div>
+
   </div>
+</div>
 
 
   <div class="mb-3">

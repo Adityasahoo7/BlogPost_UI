@@ -6,14 +6,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogpostService } from '../Services/blogpost.service';
 import { AddBlogPostRequest } from '../Models/blogpost.model';
 import { Router } from '@angular/router';
+import { MarkdownComponent } from 'ngx-markdown';
 @Component({
   selector: 'app-add-blogpost',
+  //imports:[MarkdownComponent],
   templateUrl: './add-blogpost.component.html',
   styleUrls: ['./add-blogpost.component.css']
 })
 export class AddBlogpostComponent {
 
   addBlogPostForm: FormGroup;
+  imageError=false;
 
   constructor(
     private fb: FormBuilder,

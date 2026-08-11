@@ -12,6 +12,9 @@ import { EditCategoryComponent } from './features/Category/edit-category/edit-ca
 import { BlogpostListComponent } from './features/BlogPost/blogpost-list/blogpost-list.component';
 import { AddBlogpostComponent } from './features/BlogPost/add-blogpost/add-blogpost.component';
 import { CommonModule } from '@angular/common';
+  import {MarkdownModule} from 'ngx-markdown'
+
+
 
 @NgModule({
   declarations: [
@@ -28,9 +31,14 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+
+    MarkdownModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
