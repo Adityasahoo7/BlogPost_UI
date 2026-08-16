@@ -94,6 +94,7 @@ this.route.navigate(['/admin/blogpost']);
         next: (response) => {
 
           console.log('Blog Post Created Successfully');
+          alert('Blog Post Created Successfully');
 
           console.log(response);
 
@@ -102,9 +103,12 @@ this.route.navigate(['/admin/blogpost']);
             categoryIds: []
           });
 
+          this.route.navigate(['/admin/blogpost']);
+
         },
 
         error: (error) => {
+            alert(' Error While Blog Post Creating ');
 
          // console.error('Error while creating blog post');
           console.log("STATUS:", error.status);

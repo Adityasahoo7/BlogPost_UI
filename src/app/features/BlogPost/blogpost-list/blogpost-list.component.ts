@@ -107,6 +107,7 @@ export class BlogpostListComponent {
       next: (response) => {
 
         console.log('Blog post deleted successfully');
+          alert('Blog Post Deleted Successfully');
 
         // Refresh the list
         this.getallblogpost();
@@ -124,6 +125,7 @@ export class BlogpostListComponent {
           'Unable to delete blog post. Please try again.';
 
         this.isLoading = false;
+          alert('Error while creating the blogpost');
 
       }
 
