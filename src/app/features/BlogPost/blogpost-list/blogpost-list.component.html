@@ -2,79 +2,181 @@
 
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+
     <h1>Blog Post List</h1>
 
     <button
       type="button"
       class="btn btn-primary"
       (click)="navigatetoaddpost()">
+
       Add Blog Post
+
     </button>
+
   </div>
 
+
   <!-- Loading -->
-  <div *ngIf="isLoading" class="text-center mt-4">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+  <div
+    *ngIf="isLoading"
+    class="text-center mt-4">
+
+    <div
+      class="spinner-border"
+      role="status">
+
+      <span class="visually-hidden">
+        Loading...
+      </span>
+
     </div>
-    <p class="mt-2">Loading blog posts...</p>
+
+    <p class="mt-2">
+      Loading blog posts...
+    </p>
+
   </div>
+
 
   <!-- Error -->
   <div
     *ngIf="!isLoading && errorMessage"
     class="alert alert-danger">
+
     {{ errorMessage }}
+
   </div>
+
 
   <!-- Blog Post Table -->
   <div
-    *ngIf="!isLoading && !errorMessage && blogpostsv2.length > 0"
+    *ngIf="!isLoading && !errorMessage && blogPosts.length > 0"
     class="table-responsive">
 
-    <table class="table table-bordered table-hover align-middle">
+    <table
+      class="table table-bordered table-hover align-middle">
 
       <thead class="table-dark">
+
         <tr>
+
           <th>SL</th>
+
           <th>Title</th>
+
           <th>Short Description</th>
+
+          <th>Categories</th>
+
           <th>Status</th>
+
+          <th>Action</th>
+
         </tr>
+
       </thead>
+
 
       <tbody>
 
-        <tr *ngFor="let post of blogpostsv2; let i = index">
+        <tr
+          *ngFor="let post of blogPosts; let i = index">
+
 
           <!-- Serial Number -->
           <td>
             {{ i + 1 }}
           </td>
 
+
           <!-- Title -->
           <td>
             {{ post.title }}
           </td>
+
 
           <!-- Short Description -->
           <td>
             {{ post.shortDescription }}
           </td>
 
+
+
+
           <!-- Status -->
           <td>
+
             <span
               *ngIf="post.isvisible"
               class="badge bg-success">
+
               Visible
+
             </span>
 
             <span
               *ngIf="!post.isvisible"
               class="badge bg-secondary">
+
               Hidden
+
             </span>
+
+          </td>
+
+
+          <!-- Categories -->
+          <td>
+
+            <ng-container
+              *ngIf="post.categories && post.categories.length > 0">
+
+              <span
+                *ngFor="let category of post.categories"
+                class="badge bg-info text-dark me-1">
+
+                {{ category.name }}
+
+              </span>
+
+            </ng-container>
+
+            <span
+              *ngIf="!post.categories || post.categories.length === 0"
+              class="text-muted">
+
+              No Category
+
+            </span>
+
+          </td>
+
+
+          <!-- Actions -->
+          <td>
+
+            <!-- Edit -->
+            <button
+              type="button"
+              class="btn btn-sm btn-warning me-2"
+              (click)="editBlogPost(post.id)">
+
+              Edit
+
+            </button>
+
+
+            <!-- Delete -->
+            <button
+              type="button"
+              class="btn btn-sm btn-danger"
+              (click)="deleteBlogPost(post.id)">
+
+              Delete
+
+            </button>
+
           </td>
 
         </tr>
@@ -85,11 +187,14 @@
 
   </div>
 
+
   <!-- No Data -->
   <div
-    *ngIf="!isLoading && !errorMessage && blogpostsv2.length === 0"
+    *ngIf="!isLoading && !errorMessage && blogPosts.length === 0"
     class="alert alert-info">
+
     No blog posts found.
+
   </div>
 
 </div>

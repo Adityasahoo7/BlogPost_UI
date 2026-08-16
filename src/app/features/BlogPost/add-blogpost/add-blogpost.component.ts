@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //import { BlogpostService } from '../services/blogpost.service';
 //import { AddBlogPostRequest } from '../models/blogpost.model';
 import { BlogpostService } from '../Services/blogpost.service';
-import { AddBlogPostRequest } from '../Models/blogpost.model';
+import { AddBlogPostRequest, Category } from '../Models/blogpost.model';
 import { Router } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 @Component({
@@ -17,6 +17,7 @@ export class AddBlogpostComponent {
 
   addBlogPostForm: FormGroup;
   imageError=false;
+  categories:Category[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -38,10 +39,36 @@ export class AddBlogpostComponent {
 
       auther: ['', Validators.required],
 
-      isvisible: [true]
+      isvisible: [true],
+      categotys:[[],Validators.required]
 
     });
 
+  }
+ngOnInit():void{
+  this.loadCategories();
+}
+ loadCategories(): void {
+
+    this.blogPostService.getallcategory()
+      .subscribe({
+
+        next: (response: Category[]) => {
+
+          this.categories = response;
+
+          console.log('Categories loaded:', this.categories);
+
+        },
+
+        error: (error) => {
+
+          console.error('Error while loading categories');
+          console.error(error);
+
+        }
+
+      });
   }
 back():void{
 this.route.navigate(['/admin/blogpost']);
@@ -71,16 +98,19 @@ this.route.navigate(['/admin/blogpost']);
           console.log(response);
 
           this.addBlogPostForm.reset({
-            isvisible: true
+            isvisible: true,
+            categoryIds: []
           });
 
         },
 
         error: (error) => {
 
-          console.error('Error while creating blog post');
-
-          console.error(error);
+         // console.error('Error while creating blog post');
+          console.log("STATUS:", error.status);
+  console.log("ERROR BODY:", error.error);
+  console.log("VALIDATION ERRORS:", error.error?.errors);
+         // console.error(error);
 
         }
 

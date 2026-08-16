@@ -12,7 +12,9 @@ import { EditCategoryComponent } from './features/Category/edit-category/edit-ca
 import { BlogpostListComponent } from './features/BlogPost/blogpost-list/blogpost-list.component';
 import { AddBlogpostComponent } from './features/BlogPost/add-blogpost/add-blogpost.component';
 import { CommonModule } from '@angular/common';
-  import {MarkdownModule} from 'ngx-markdown'
+  import {MarkdownModule} from 'ngx-markdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-blogpost.component'
 
 
 
@@ -24,7 +26,8 @@ import { CommonModule } from '@angular/common';
     AddCategoryComponent,
     EditCategoryComponent,
     BlogpostListComponent,
-    AddBlogpostComponent
+    AddBlogpostComponent,
+    EditBlogpostComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     CommonModule,
 
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+     BrowserAnimationsModule
   ],
   providers: [
     
