@@ -107,10 +107,13 @@ export class BlogpostListComponent {
       next: (response) => {
 
         console.log('Blog post deleted successfully');
-          alert('Blog Post Deleted Successfully');
+        
 
         // Refresh the list
         this.getallblogpost();
+
+
+          alert('Blog Post Deleted Successfully');
 
       },
 

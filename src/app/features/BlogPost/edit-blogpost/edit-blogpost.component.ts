@@ -212,6 +212,8 @@ export class EditBlogpostComponent implements OnInit {
           console.log(response);
 
           this.isLoading = false;
+            alert('Blog Post Updated Successfully');
+
 
           this.router.navigate([
             '/admin/blogpost'
@@ -227,6 +229,11 @@ export class EditBlogpostComponent implements OnInit {
           );
 
           this.isLoading = false;
+          
+
+         alert('ErrorFced whilee update the BlogPost');
+          this.router.navigate(['/admin/blogpost']);
+
 
         }
 
