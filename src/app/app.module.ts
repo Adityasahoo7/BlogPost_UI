@@ -14,7 +14,8 @@ import { AddBlogpostComponent } from './features/BlogPost/add-blogpost/add-blogp
 import { CommonModule } from '@angular/common';
   import {MarkdownModule} from 'ngx-markdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-blogpost.component'
+import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-blogpost.component';
+import { ImageSelectorComponent } from './shared/Components/image-selector/image-selector.component'
 
 
 
@@ -27,7 +28,8 @@ import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-bl
     EditCategoryComponent,
     BlogpostListComponent,
     AddBlogpostComponent,
-    EditBlogpostComponent
+    EditBlogpostComponent,
+    ImageSelectorComponent
   ],
   imports: [
     BrowserModule,
