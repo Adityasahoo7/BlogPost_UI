@@ -110,7 +110,7 @@ export class BlogpostListComponent {
         
 
         // Refresh the list
-        this.getallblogpost();
+        this.getallblogpost(); 
 
 
           alert('Blog Post Deleted Successfully');

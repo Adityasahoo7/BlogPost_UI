@@ -8,6 +8,7 @@ import {
   BlogPost,
   Category
 } from '../Models/blogpost.model';
+import { ImageSelecterServiceService } from 'src/app/shared/Services/image-selecter-service.service';
 
 @Component({
   selector: 'app-edit-blogpost',
@@ -30,7 +31,8 @@ export class EditBlogpostComponent implements OnInit {
     private fb: FormBuilder,
     private blogPostService: BlogpostService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private imageselecterservice:ImageSelecterServiceService
   ) {
 
     this.editBlogPostForm = this.fb.group({
@@ -54,7 +56,9 @@ export class EditBlogpostComponent implements OnInit {
     });
 
   }
-
+openimageselector(){
+this.imageselecterservice.displayimageselector();
+}
 
   ngOnInit(): void {
 
