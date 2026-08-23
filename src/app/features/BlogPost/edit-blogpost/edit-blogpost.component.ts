@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { BlogpostService } from '../Services/blogpost.service';
 import {
@@ -15,7 +16,7 @@ import { ImageSelecterServiceService } from 'src/app/shared/Services/image-selec
   templateUrl: './edit-blogpost.component.html',
   styleUrls: ['./edit-blogpost.component.css']
 })
-export class EditBlogpostComponent implements OnInit {
+export class EditBlogpostComponent implements OnInit, OnDestroy {
 
   editBlogPostForm: FormGroup;
 
@@ -27,12 +28,14 @@ export class EditBlogpostComponent implements OnInit {
 
   imageError: boolean = false;
 
+  private selectedImageSubscription?: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private blogPostService: BlogpostService,
     private route: ActivatedRoute,
     private router: Router,
-    private imageselecterservice:ImageSelecterServiceService
+    private imageselecterservice: ImageSelecterServiceService
   ) {
 
     this.editBlogPostForm = this.fb.group({
@@ -56,11 +59,28 @@ export class EditBlogpostComponent implements OnInit {
     });
 
   }
-openimageselector(){
-this.imageselecterservice.displayimageselector();
-}
+
+
+  openimageselector(): void {
+    this.imageselecterservice.displayimageselector();
+  }
+
 
   ngOnInit(): void {
+
+    // Listen for image selections from the image selector
+    this.selectedImageSubscription =
+      this.imageselecterservice.selectedImage$
+        .subscribe(image => {
+
+          this.editBlogPostForm.patchValue({
+            featuredImageURL: image.url
+          });
+
+          this.imageError = false;
+
+        });
+
 
     this.blogPostId =
       this.route.snapshot.paramMap.get('id') || '';
@@ -150,7 +170,7 @@ this.imageselecterservice.displayimageselector();
 
             isvisible: response.isvisible,
 
-            categoryIds: categoryIds
+            categotys: categoryIds
 
           });
 
@@ -216,8 +236,8 @@ this.imageselecterservice.displayimageselector();
           console.log(response);
 
           this.isLoading = false;
-            alert('Blog Post Updated Successfully');
 
+          alert('Blog Post Updated Successfully');
 
           this.router.navigate([
             '/admin/blogpost'
@@ -233,11 +253,10 @@ this.imageselecterservice.displayimageselector();
           );
 
           this.isLoading = false;
-          
 
-         alert('ErrorFced whilee update the BlogPost');
+          alert('Error faced while updating the blog post');
+
           this.router.navigate(['/admin/blogpost']);
-
 
         }
 
@@ -252,6 +271,13 @@ this.imageselecterservice.displayimageselector();
     this.router.navigate([
       '/admin/blogpost'
     ]);
+
+  }
+
+
+  ngOnDestroy(): void {
+
+    this.selectedImageSubscription?.unsubscribe();
 
   }
 

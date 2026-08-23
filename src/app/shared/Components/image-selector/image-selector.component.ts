@@ -23,6 +23,8 @@ export class ImageSelectorComponent implements OnDestroy {
   images: BlogImage[] = [];
   isUploading = false;
   errorMessage: string | null = null;
+   isLoadingImages = false;
+  private imagesSubscription?: Subscription;
 
   private readonly allowedExtensions = ['.jpg', '.jpeg', '.png'];
   private readonly maxFileSizeBytes = 10 * 1024 * 1024; // 10 MB
@@ -39,6 +41,35 @@ export class ImageSelectorComponent implements OnDestroy {
       title: ['', [Validators.required, Validators.maxLength(200)]]
     });
   }
+
+
+
+ngOnInit(): void {
+    this.loadImages();
+  }
+
+  private loadImages(): void {
+    this.isLoadingImages = true;
+
+    this.imagesSubscription = this.imageselectorservice.getAllImages()
+      .subscribe({
+        next: (images) => {
+          this.images = images;
+          this.isLoadingImages = false;
+        },
+        error: () => {
+          this.errorMessage = 'Could not load images.';
+          this.isLoadingImages = false;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.uploadSubscription?.unsubscribe();
+    this.imagesSubscription?.unsubscribe();
+    this.clearFile();
+  }
+
 
   get fileName() {
     return this.uploadForm.get('fileName');
@@ -112,10 +143,7 @@ export class ImageSelectorComponent implements OnDestroy {
     this.imageselectorservice.hideimageselector();
   }
 
-  ngOnDestroy(): void {
-    this.uploadSubscription?.unsubscribe();
-    this.clearFile();
-  }
+
 
   private validateFile(file: File): string | null {
     const dotIndex = file.name.lastIndexOf('.');

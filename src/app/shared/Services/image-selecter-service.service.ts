@@ -29,7 +29,9 @@ export class ImageSelecterServiceService {
     this.selectedImageSubject.next(image);
     this.hideimageselector();
   }
-
+getAllImages(): Observable<BlogImage[]> {
+  return this.http.get<BlogImage[]>(`${this.apiBaseUrl}/api/Images`);
+}
   uploadImage(file: File, fileName: string, title: string): Observable<BlogImage> {
     const formData = new FormData();
     formData.append('File', file);

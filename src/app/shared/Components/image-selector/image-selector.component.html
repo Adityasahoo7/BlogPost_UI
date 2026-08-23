@@ -13,8 +13,14 @@
     <div class="card-body">
       <div class="d-flex flex-column flex-md-row flex-wrap">
 
+        <!-- Gallery -->
         <div class="col-12 col-md-8 p-4">
-          <div class="row g-3" *ngIf="images.length > 0; else noImages">
+
+          <div *ngIf="isLoadingImages" class="text-muted">
+            Loading images...
+          </div>
+
+          <div class="row g-3" *ngIf="!isLoadingImages && images.length > 0">
             <div class="col-6 col-lg-4" *ngFor="let image of images">
               <img [src]="image.url"
                    [alt]="image.title"
@@ -25,11 +31,13 @@
             </div>
           </div>
 
-          <ng-template #noImages>
-            <p class="text-muted">No images yet. Upload one to get started.</p>
-          </ng-template>
+          <p class="text-muted" *ngIf="!isLoadingImages && images.length === 0">
+            No images yet. Upload one to get started.
+          </p>
+
         </div>
 
+        <!-- Upload form -->
         <div class="col-12 col-md-4 p-4 bg-light">
           <h5>Upload Image</h5>
 

@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-//import { BlogpostService } from '../services/blogpost.service';
-//import { AddBlogPostRequest } from '../models/blogpost.model';
 import { BlogpostService } from '../Services/blogpost.service';
 import { AddBlogPostRequest, Category } from '../Models/blogpost.model';
-import { Router } from '@angular/router';
-import { MarkdownComponent } from 'ngx-markdown';
+import { ImageSelecterServiceService } from 'src/app/shared/Services/image-selecter-service.service';
+
 @Component({
   selector: 'app-add-blogpost',
-  //imports:[MarkdownComponent],
   templateUrl: './add-blogpost.component.html',
   styleUrls: ['./add-blogpost.component.css']
 })
-export class AddBlogpostComponent {
+export class AddBlogpostComponent implements OnInit, OnDestroy {
 
   addBlogPostForm: FormGroup;
-  imageError=false;
-  categories:Category[]=[];
+
+  imageError = false;
+
+  categories: Category[] = [];
+
+  private selectedImageSubscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private blogPostService: BlogpostService,
-    private route:Router
+    private route: Router,
+    private imageselecterservice: ImageSelecterServiceService
   ) {
 
     this.addBlogPostForm = this.fb.group({
@@ -40,15 +44,40 @@ export class AddBlogpostComponent {
       auther: ['', Validators.required],
 
       isvisible: [true],
-      categotys:[[],Validators.required]
+
+      categotys: [[], Validators.required]
 
     });
 
   }
-ngOnInit():void{
-  this.loadCategories();
-}
- loadCategories(): void {
+
+
+  openimageselector(): void {
+    this.imageselecterservice.displayimageselector();
+  }
+
+
+  ngOnInit(): void {
+
+    // Listen for image selections from the image selector
+    this.selectedImageSubscription =
+      this.imageselecterservice.selectedImage$
+        .subscribe(image => {
+
+          this.addBlogPostForm.patchValue({
+            featuredImageURL: image.url
+          });
+
+          this.imageError = false;
+
+        });
+
+    this.loadCategories();
+
+  }
+
+
+  loadCategories(): void {
 
     this.blogPostService.getallcategory()
       .subscribe({
@@ -69,10 +98,14 @@ ngOnInit():void{
         }
 
       });
+
   }
-back():void{
-this.route.navigate(['/admin/blogpost']);
-}
+
+
+  back(): void {
+    this.route.navigate(['/admin/blogpost']);
+  }
+
 
   addBlogPost(): void {
 
@@ -100,25 +133,33 @@ this.route.navigate(['/admin/blogpost']);
 
           this.addBlogPostForm.reset({
             isvisible: true,
-            categoryIds: []
+            categotys: []
           });
+
+          this.imageError = false;
 
           this.route.navigate(['/admin/blogpost']);
 
         },
 
         error: (error) => {
-            alert(' Error While Blog Post Creating ');
 
-         // console.error('Error while creating blog post');
-          console.log("STATUS:", error.status);
-  console.log("ERROR BODY:", error.error);
-  console.log("VALIDATION ERRORS:", error.error?.errors);
-         // console.error(error);
+          alert('Error while creating blog post');
+
+          console.log('STATUS:', error.status);
+          console.log('ERROR BODY:', error.error);
+          console.log('VALIDATION ERRORS:', error.error?.errors);
 
         }
 
       });
+
+  }
+
+
+  ngOnDestroy(): void {
+
+    this.selectedImageSubscription?.unsubscribe();
 
   }
 
