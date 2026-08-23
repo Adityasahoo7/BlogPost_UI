@@ -1,41 +1,81 @@
-
-
-   <div class="image-selector-container" *ngIf="showimageselector()">
+<div class="image-selector-container" *ngIf="showimageselector()">
   <button type="button" class="btn btn-danger"
           style="position: fixed; top: 10px; right: 10px; z-index: 1050;"
           (click)="hideimageselector()">
     X
   </button>
 
-<div class="card h-100">
-<div class="card-header">
-    <h3 class="card-title">Images</h3>
-
-    
-</div>
-   <div class="card-body">
-  <div class="d-flex flex-column flex-md-row flex-wrap">
-
-    <div class="col-12 col-md-8 p-4">
-      <!-- images gallery goes here -->
+  <div class="card h-100">
+    <div class="card-header">
+      <h3 class="card-title">Images</h3>
     </div>
 
-    <div class="col-12 col-md-4 p-4 bg-light">
-      <h5>Upload Image</h5>
-      <form>
-        <div class="mt-3">
-          <input type="text" class="form-control" placeholder="File Name">
-        </div>
-        <div class="mt-3">
-          <input type="text" class="form-control" placeholder="Title">
-        </div>
-        <div class="mt-3">
-          <button type="submit" class="btn btn-dark">Upload</button>
-        </div>
-      </form>
-    </div>
+    <div class="card-body">
+      <div class="d-flex flex-column flex-md-row flex-wrap">
 
+        <div class="col-12 col-md-8 p-4">
+          <div class="row g-3" *ngIf="images.length > 0; else noImages">
+            <div class="col-6 col-lg-4" *ngFor="let image of images">
+              <img [src]="image.url"
+                   [alt]="image.title"
+                   class="img-fluid rounded"
+                   style="cursor: pointer; aspect-ratio: 1; object-fit: cover;"
+                   (click)="selectImage(image)">
+              <small class="d-block text-truncate mt-1">{{ image.title }}</small>
+            </div>
+          </div>
+
+          <ng-template #noImages>
+            <p class="text-muted">No images yet. Upload one to get started.</p>
+          </ng-template>
+        </div>
+
+        <div class="col-12 col-md-4 p-4 bg-light">
+          <h5>Upload Image</h5>
+
+          <form [formGroup]="uploadForm" (ngSubmit)="onFormSubmit()">
+
+            <div class="mt-3">
+              <input type="file"
+                     class="form-control"
+                     accept=".jpg,.jpeg,.png"
+                     (change)="onFileSelected($event)">
+            </div>
+
+            <div class="mt-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" alt="Preview" class="img-fluid rounded border">
+            </div>
+
+            <div class="mt-3">
+              <input type="text" class="form-control" placeholder="File Name"
+                     formControlName="fileName">
+              <small class="text-danger" *ngIf="fileName?.invalid && fileName?.touched">
+                File name is required.
+              </small>
+            </div>
+
+            <div class="mt-3">
+              <input type="text" class="form-control" placeholder="Title"
+                     formControlName="title">
+              <small class="text-danger" *ngIf="title?.invalid && title?.touched">
+                Title is required.
+              </small>
+            </div>
+
+            <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <div class="mt-3">
+              <button type="submit" class="btn btn-dark" [disabled]="isUploading">
+                {{ isUploading ? 'Uploading...' : 'Upload' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
   </div>
-</div>
-    </div>
 </div>
