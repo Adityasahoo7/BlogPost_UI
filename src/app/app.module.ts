@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
   import {MarkdownModule} from 'ngx-markdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-blogpost.component';
-import { ImageSelectorComponent } from './shared/Components/image-selector/image-selector.component'
+import { ImageSelectorComponent } from './shared/Components/image-selector/image-selector.component';
+import { HomeComponent } from './features/public/home/home.component'
 
 
 
@@ -29,7 +30,8 @@ import { ImageSelectorComponent } from './shared/Components/image-selector/image
     BlogpostListComponent,
     AddBlogpostComponent,
     EditBlogpostComponent,
-    ImageSelectorComponent
+    ImageSelectorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
