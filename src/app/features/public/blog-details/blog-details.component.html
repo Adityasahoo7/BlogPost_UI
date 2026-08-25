@@ -21,7 +21,7 @@
       <span>{{ blogpost.auther }}</span>
       <span>&middot;</span>
       <span>{{ blogpost.dateCreated | date: 'dd MMM yyyy' }}</span>
-      <span class="badge bg-secondary" *ngFor="let category of blogpost.categotys">
+      <span class="badge bg-secondary" *ngFor="let category of blogpost.categories">
         {{ category.name }}
       </span>
     </div>
