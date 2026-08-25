@@ -1,0 +1,11 @@
+:host ::ng-deep markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+:host ::ng-deep markdown pre {
+  background: #f6f8fa;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}

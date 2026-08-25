@@ -16,7 +16,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-blogpost.component';
 import { ImageSelectorComponent } from './shared/Components/image-selector/image-selector.component';
-import { HomeComponent } from './features/public/home/home.component'
+import { HomeComponent } from './features/public/home/home.component';
+import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component'
 
 
 
@@ -31,7 +32,8 @@ import { HomeComponent } from './features/public/home/home.component'
     AddBlogpostComponent,
     EditBlogpostComponent,
     ImageSelectorComponent,
-    HomeComponent
+    HomeComponent,
+    BlogDetailsComponent
   ],
   imports: [
     BrowserModule,

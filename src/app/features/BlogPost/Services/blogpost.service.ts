@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { AddBlogPostRequest, BlogPost, BlogpostV2, Category } from '../Models/blogpost.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,11 @@ addblogpost(blogpost:AddBlogPostRequest):Observable<any>{
 getAllblogpost():Observable<BlogPost[]>{
   return this.http.get<BlogPost[]>(`${this.baseUrl}/api/BlogPost/GetAllBlogpost`);
 }
-
+getPublishedBlogposts(): Observable<BlogPost[]> {
+  return this.getAllblogpost().pipe(
+    map(posts => posts.filter(p => p.isvisible))
+  );
+}
 getallblogpostv2():Observable<BlogpostV2[]>{
   return this.http.get<BlogpostV2[]>(`${this.baseUrl}/api/BlogPost/GetAllBlogpostV2`)
 }
