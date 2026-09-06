@@ -8,9 +8,34 @@ import { AddBlogpostComponent } from './features/BlogPost/add-blogpost/add-blogp
 import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-blogpost.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
+import { AuthGuard } from './Auth/Guards/auth.guard';
+import { LoginComponent } from './Auth/Components/login/login.component';
+import { RegisterComponent } from './Auth/Components/register/register.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+   // Application opens -> Login
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+
+
+  // Login
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+
+
+  // Register
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+
+
+  { path: 'home', component: HomeComponent,   canActivate: [AuthGuard] },
   { path: 'blog/:id', component: BlogDetailsComponent },
 
   { path: 'admin/categories', component: CategoryListComponent },
@@ -20,7 +45,7 @@ const routes: Routes = [
   { path: 'admin/blogpost/add', component: AddBlogpostComponent },
   { path: 'admin/blogpost/editblog/:id', component: EditBlogpostComponent },
 
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
