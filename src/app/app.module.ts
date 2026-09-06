@@ -19,6 +19,8 @@ import { ImageSelectorComponent } from './shared/Components/image-selector/image
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component'
 import { AuthInterceptor } from './Auth/interceptors/auth.interceptor';
+import { LoginComponent } from './Auth/Components/login/login.component';
+import { RegisterComponent } from './Auth/Components/register/register.component';
 
 
 
@@ -34,7 +36,9 @@ import { AuthInterceptor } from './Auth/interceptors/auth.interceptor';
     EditBlogpostComponent,
     ImageSelectorComponent,
     HomeComponent,
-    BlogDetailsComponent
+    BlogDetailsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
