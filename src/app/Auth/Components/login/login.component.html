@@ -10,35 +10,22 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="login()">
 
-      <!-- Email -->
+      <!-- Username -->
+<div class="form-group">
+  <label>Username</label>
+  <input
+    type="text"
+    formControlName="username"
+    placeholder="Enter your Username"
+  />
 
-      <div class="form-group">
-
-        <label>Username</label>
-
-        <input
-          type="text"
-       
-          placeholder="Enter your Username"
-        />
-
-        <div
-          class="error"
-          *ngIf="
-            loginForm.get('Username')?.touched &&
-            loginForm.get('Username')?.invalid
-          "
-        >
-          <span *ngIf="loginForm.get('Username')?.errors?.['required']">
-            Email is required
-          </span>
-
-          <span *ngIf="loginForm.get('Username')?.errors?.['Username']">
-            Enter a valid Username
-          </span>
-        </div>
-
-      </div>
+  <div class="error"
+       *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
+    <span *ngIf="loginForm.get('username')?.errors?.['required']">
+      Username is required
+    </span>
+  </div>
+</div>
 
 
       <!-- Password -->

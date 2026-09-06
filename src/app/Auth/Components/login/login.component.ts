@@ -23,24 +23,18 @@ export class LoginComponent {
   ) {
 
     this.loginForm = this.fb.group({
-      email: ['', [
-        Validators.required,
-        Validators.email
-      ]],
-
-      password: ['', [
-        Validators.required,
-        Validators.minLength(6)
-      ]]
-    });
+  username: ['', [Validators.required]],
+  password: ['', [Validators.required, Validators.minLength(6)]]
+});
   }
 
   login(): void {
 
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
+   if (this.loginForm.invalid) {
+  this.loginForm.markAllAsTouched();
+  this.errorMessage = 'Please fill all fields correctly.';
+  return;
+}
 
     this.loading = true;
     this.errorMessage = '';
@@ -55,7 +49,7 @@ export class LoginComponent {
 
           console.log('Login successful', response);
 
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']);
         },
 
         error: (error) => {
