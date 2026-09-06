@@ -7,7 +7,7 @@ import { NavbarComponent } from './Core/Components/navbar/navbar.component';
 import { CategoryListComponent } from './features/Category/category-list/category-list.component';
 import { AddCategoryComponent } from './features/Category/add-category/add-category.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EditCategoryComponent } from './features/Category/edit-category/edit-category.component';
 import { BlogpostListComponent } from './features/BlogPost/blogpost-list/blogpost-list.component';
 import { AddBlogpostComponent } from './features/BlogPost/add-blogpost/add-blogpost.component';
@@ -18,6 +18,7 @@ import { EditBlogpostComponent } from './features/BlogPost/edit-blogpost/edit-bl
 import { ImageSelectorComponent } from './shared/Components/image-selector/image-selector.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component'
+import { AuthInterceptor } from './Auth/interceptors/auth.interceptor';
 
 
 
@@ -46,7 +47,9 @@ import { BlogDetailsComponent } from './features/public/blog-details/blog-detail
      BrowserAnimationsModule
   ],
   providers: [
-    
+    {provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true}
 
   ],
   bootstrap: [AppComponent]
