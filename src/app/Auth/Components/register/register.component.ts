@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -33,19 +32,11 @@ export class RegisterComponent {
 
     this.registerForm = this.fb.group({
 
-      name: [
+      username: [
         '',
         [
           Validators.required,
           Validators.minLength(3)
-        ]
-      ],
-
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.email
         ]
       ],
 
@@ -74,6 +65,8 @@ export class RegisterComponent {
 
       this.registerForm.markAllAsTouched();
 
+      this.errorMessage = 'Please fill all fields correctly.';
+
       return;
     }
 
@@ -101,8 +94,14 @@ export class RegisterComponent {
     this.successMessage = '';
 
 
+    const payload = {
+      username: this.registerForm.get('username')?.value,
+      password: password
+    };
+
+
     this.authService
-      .register(this.registerForm.value)
+      .register(payload)
       .subscribe({
 
         next: () => {
